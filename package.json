@@ -1,0 +1,13 @@
+{
+  "name": "inityx-website",
+  "version": "0.0.1",
+  "private": true,
+  "description": "InityX — influencer marketing for AI & tech brands",
+  "scripts": {
+    "dev": "live-server --port=5173 --no-browser --watch=index.html",
+    "start": "npm run dev"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InityX — Influencer marketing for AI &amp; tech brands</title>
+  <meta name="description" content="InityX is an influencer marketing agency built exclusively for AI and tech brands. We connect your product with creators who actually get it." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --bg: #0a0a0a;
+      --bg-elev: #111111;
+      --line: #1f1f1f;
+      --text: #f0ece4;          /* warm off-white */
+      --text-dim: #8a8780;
+      --text-mute: #5a5751;
+      --accent: #d4ff3d;        /* electric lime */
+      --accent-dim: #a8cc2e;
+
+      --serif: "Instrument Serif", Georgia, serif;
+      --sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+      --maxw: 1200px;
+      --gutter: clamp(20px, 4vw, 48px);
+    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    ::selection { background: var(--accent); color: #0a0a0a; }
+
+    /* ---------- Layout helpers ---------- */
+    .container {
+      width: 100%;
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding-left: var(--gutter);
+      padding-right: var(--gutter);
+    }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      background: #050505;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      height: 36px;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(212, 255, 61, 0.6);
+      animation: pulse 2s ease-out infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(212, 255, 61, 0.55); }
+      70%  { box-shadow: 0 0 0 8px rgba(212, 255, 61, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(212, 255, 61, 0); }
+    }
+    .status__label { color: var(--text); }
+    .topbar__meta { color: var(--text-mute); }
+    @media (max-width: 640px) {
+      .topbar__meta { display: none; }
+    }
+
+    /* ---------- Sticky nav ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 10, 10, 0.78);
+      backdrop-filter: saturate(140%) blur(12px);
+      -webkit-backdrop-filter: saturate(140%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 68px;
+    }
+    .logo {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 26px;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+    .logo__mark { color: var(--accent); font-style: normal; font-family: var(--sans); font-weight: 500; }
+
+    .nav__links {
+      display: flex;
+      gap: 28px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .nav__links a { transition: color 160ms ease; }
+    .nav__links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 160ms ease, background 160ms ease, color 160ms ease, border-color 160ms ease;
+    }
+    .btn--primary { background: var(--accent); color: #0a0a0a; }
+    .btn--primary:hover { background: #e6ff6a; transform: translateY(-1px); }
+    .btn--ghost { border: 1px solid var(--line); color: var(--text); }
+    .btn--ghost:hover { border-color: var(--text-dim); }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      padding: clamp(72px, 12vw, 160px) 0 clamp(72px, 10vw, 140px);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 0%, rgba(212, 255, 61, 0.06), transparent 70%),
+        radial-gradient(ellipse 80% 50% at 0% 100%, rgba(212, 255, 61, 0.03), transparent 70%);
+      pointer-events: none;
+    }
+    .hero__inner { position: relative; max-width: 980px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: clamp(28px, 4vw, 44px);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--text-mute);
+    }
+
+    .hero__title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(44px, 7.4vw, 104px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      margin: 0 0 clamp(24px, 3vw, 36px);
+      color: var(--text);
+    }
+    .hero__title em { font-style: italic; color: var(--text); }
+    .hero__title .accent { color: var(--accent); font-style: italic; }
+
+    .hero__lede {
+      max-width: 620px;
+      font-size: clamp(16px, 1.4vw, 19px);
+      line-height: 1.55;
+      color: var(--text-dim);
+      margin: 0 0 clamp(32px, 4vw, 44px);
+    }
+    .hero__lede strong { color: var(--text); font-weight: 500; }
+
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: clamp(48px, 7vw, 88px);
+    }
+
+    .hero__meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(20px, 3vw, 40px);
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      max-width: 720px;
+    }
+    .hero__meta-item { display: flex; flex-direction: column; gap: 6px; }
+    .hero__meta-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .hero__meta-value {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(16px, 1.6vw, 20px);
+      color: var(--text);
+      line-height: 1.2;
+    }
+    @media (max-width: 640px) {
+      .hero__meta { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    /* ---------- Section frame (shared) ---------- */
+    .section {
+      position: relative;
+      padding: clamp(80px, 11vw, 140px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section__head {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: clamp(24px, 5vw, 80px);
+      margin-bottom: clamp(56px, 8vw, 96px);
+      align-items: end;
+    }
+    .section__kicker {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .section__title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin: 0;
+      color: var(--text);
+    }
+    .section__title em { font-style: italic; }
+    .section__title .accent { color: var(--accent); font-style: italic; }
+    @media (max-width: 768px) {
+      .section__head { grid-template-columns: 1fr; align-items: start; }
+    }
+
+    /* ---------- §4 Approach ---------- */
+    .approach__list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(32px, 5vw, 64px);
+    }
+    .approach__item {
+      position: relative;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .approach__item:hover .approach__num { color: var(--accent); }
+    .approach__num {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-mute);
+      margin-bottom: 24px;
+      transition: color 200ms ease;
+    }
+    .approach__title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(22px, 2.4vw, 30px);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+    .approach__title em { font-style: italic; }
+    .approach__body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-dim);
+      margin: 0;
+    }
+    .approach__body strong { color: var(--text); font-weight: 500; }
+    @media (max-width: 900px) {
+      .approach__list { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ---------- §5 Services ---------- */
+    .services__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid var(--line);
+    }
+    .service {
+      position: relative;
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1.1fr) minmax(0, 1.5fr) 200px 40px;
+      align-items: center;
+      gap: clamp(16px, 3vw, 40px);
+      padding: clamp(28px, 4vw, 44px) clamp(8px, 2vw, 24px);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 240ms ease, padding 240ms ease;
+    }
+    .service::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0;
+      background: var(--accent);
+      transition: width 240ms ease;
+    }
+    .service:hover {
+      background: rgba(212, 255, 61, 0.03);
+    }
+    .service:hover::after { width: 3px; }
+    .service:hover .service__name { color: var(--accent); }
+    .service:hover .service__arrow { transform: translateX(4px); color: var(--accent); }
+
+    .service__num {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--text-mute);
+    }
+    .service__name {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      transition: color 240ms ease;
+    }
+    .service__desc {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text-dim);
+    }
+    .service__meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .service__meta-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text-mute);
+    }
+    .service__meta-value { color: var(--text); }
+    .service__arrow {
+      font-family: var(--sans);
+      font-size: 22px;
+      color: var(--text-mute);
+      justify-self: end;
+      transition: transform 240ms ease, color 240ms ease;
+    }
+    @media (max-width: 1024px) {
+      .service {
+        grid-template-columns: 60px minmax(0, 1fr) 32px;
+        grid-template-rows: auto auto auto;
+        row-gap: 12px;
+      }
+      .service__num { grid-row: 1; grid-column: 1; }
+      .service__name { grid-row: 1; grid-column: 2; }
+      .service__arrow { grid-row: 1; grid-column: 3; align-self: start; }
+      .service__desc { grid-row: 2; grid-column: 2; }
+      .service__meta { grid-row: 3; grid-column: 2; padding-top: 4px; }
+    }
+    @media (max-width: 600px) {
+      .service__name { font-size: 26px; }
+    }
+
+    /* ---------- §6 Process ---------- */
+    .process {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .process__step {
+      position: relative;
+      display: grid;
+      grid-template-columns: clamp(80px, 12vw, 140px) 1fr;
+      gap: clamp(24px, 4vw, 56px);
+      padding: clamp(36px, 5vw, 56px) 0;
+      border-top: 1px solid var(--line);
+    }
+    .process__step:last-child { border-bottom: 1px solid var(--line); }
+
+    .process__num {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.9;
+      color: var(--text-mute);
+      letter-spacing: -0.02em;
+      transition: color 240ms ease;
+    }
+    .process__step:hover .process__num { color: var(--accent); }
+
+    .process__body { display: flex; flex-direction: column; gap: 12px; }
+    .process__step-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .process__title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0;
+      color: var(--text);
+    }
+    .process__title em { font-style: italic; }
+    .process__desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-dim);
+      max-width: 60ch;
+      margin: 4px 0 0;
+    }
+    .process__desc strong { color: var(--text); font-weight: 500; }
+
+    @media (max-width: 600px) {
+      .process__step {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 32px 0;
+      }
+      .process__num { font-size: 56px; }
+    }
+
+    /* ---------- §7 Real talk ---------- */
+    .real-talk {
+      background:
+        radial-gradient(ellipse 50% 50% at 50% 0%, rgba(212, 255, 61, 0.04), transparent 70%),
+        var(--bg);
+    }
+    .real-talk__inner {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .real-talk__kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: clamp(28px, 4vw, 40px);
+    }
+    .real-talk__kicker::before,
+    .real-talk__kicker::after {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: rgba(212, 255, 61, 0.5);
+    }
+    .real-talk__statement {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(32px, 4.6vw, 60px);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin: 0 0 clamp(40px, 5vw, 56px);
+    }
+    .real-talk__statement .accent { color: var(--accent); }
+    .real-talk__lede {
+      font-size: clamp(16px, 1.3vw, 18px);
+      line-height: 1.6;
+      color: var(--text-dim);
+      max-width: 620px;
+      margin: 0 auto clamp(48px, 6vw, 72px);
+    }
+
+    .real-talk__admissions {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      max-width: 720px;
+      margin: 0 auto;
+      border-top: 1px solid var(--line);
+    }
+    .admission {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .admission__tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .admission__text {
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--text-dim);
+      margin: 0;
+    }
+    .admission__text strong { color: var(--text); font-weight: 500; }
+    .admission__text em {
+      font-family: var(--serif);
+      font-style: italic;
+      color: var(--text);
+    }
+    @media (max-width: 600px) {
+      .admission {
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 20px 0;
+      }
+    }
+
+    /* ---------- §8 Contact ---------- */
+    .contact {
+      background: var(--bg);
+    }
+    .contact__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(40px, 6vw, 96px);
+    }
+    .contact__pitch-title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(36px, 4.6vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin: 0 0 24px;
+      color: var(--text);
+    }
+    .contact__pitch-title em { font-style: italic; }
+    .contact__pitch-title .accent { color: var(--accent); font-style: italic; }
+    .contact__pitch-body {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-dim);
+      max-width: 42ch;
+      margin: 0 0 40px;
+    }
+
+    .contact__direct {
+      border-top: 1px solid var(--line);
+      padding-top: 28px;
+    }
+    .contact__direct-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-bottom: 10px;
+    }
+    .contact__direct-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(22px, 2.4vw, 30px);
+      color: var(--text);
+      letter-spacing: -0.01em;
+      transition: color 200ms ease;
+    }
+    .contact__direct-link::after {
+      content: "↗";
+      font-family: var(--sans);
+      font-style: normal;
+      font-size: 18px;
+      color: var(--text-mute);
+      transition: transform 200ms ease, color 200ms ease;
+    }
+    .contact__direct-link:hover { color: var(--accent); }
+    .contact__direct-link:hover::after { color: var(--accent); transform: translate(2px, -2px); }
+
+    .contact__meta {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .contact__meta strong { color: var(--text); font-weight: 400; }
+
+    /* form */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form__label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .form__input,
+    .form__textarea {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0 14px;
+      font-family: var(--sans);
+      font-size: 16px;
+      color: var(--text);
+      transition: border-color 200ms ease;
+    }
+    .form__input::placeholder,
+    .form__textarea::placeholder {
+      color: var(--text-mute);
+    }
+    .form__input:focus,
+    .form__textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .form__textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+    }
+    .form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+    .form__submit {
+      align-self: flex-start;
+      margin-top: 12px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #0a0a0a;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease;
+    }
+    .form__submit:hover { background: #e6ff6a; transform: translateY(-1px); }
+    .form__note {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      color: var(--text-mute);
+      margin: 4px 0 0;
+    }
+    .form__status {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .contact__grid { grid-template-columns: 1fr; }
+      .form__row { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- §9 Footer ---------- */
+    .footer {
+      padding: clamp(56px, 7vw, 88px) 0 clamp(40px, 5vw, 56px);
+      background: #050505;
+      border-top: 1px solid var(--line);
+    }
+    .footer__top {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+      gap: clamp(32px, 5vw, 64px);
+      padding-bottom: clamp(40px, 5vw, 56px);
+      border-bottom: 1px solid var(--line);
+    }
+    .footer__brand {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(28px, 3vw, 38px);
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin: 0 0 12px;
+    }
+    .footer__brand .logo__mark {
+      color: var(--accent);
+      font-style: normal;
+      font-family: var(--sans);
+      font-weight: 500;
+    }
+    .footer__tagline {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-dim);
+      max-width: 36ch;
+      margin: 0;
+    }
+
+    .footer__col-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-mute);
+      margin-bottom: 18px;
+    }
+    .footer__links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer__links a {
+      font-size: 14px;
+      color: var(--text-dim);
+      transition: color 160ms ease;
+    }
+    .footer__links a:hover { color: var(--text); }
+    .footer__links a:hover .footer__arrow { color: var(--accent); }
+    .footer__arrow {
+      display: inline-block;
+      margin-left: 4px;
+      color: var(--text-mute);
+      transition: color 160ms ease;
+    }
+
+    .footer__bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: clamp(24px, 3vw, 32px);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--text-mute);
+    }
+    .footer__bottom a:hover { color: var(--text); }
+    .footer__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 160ms ease;
+    }
+    .footer__back::before {
+      content: "↑";
+      font-family: var(--sans);
+    }
+
+    @media (max-width: 768px) {
+      .footer__top {
+        grid-template-columns: 1fr 1fr;
+      }
+      .footer__brand-block { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer__top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ TOP BAR ============ -->
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <span class="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        <span class="status__label">Currently onboarding</span>
+        <span>— 2 spots open for Q3</span>
+      </span>
+      <span class="topbar__meta">Built for AI &amp; tech · Remote</span>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <a href="#" class="logo">Inity<span class="logo__mark">X</span></a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#approach">Approach</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#real-talk">Real talk</a>
+      </nav>
+      <a href="#contact" class="btn btn--primary">Book a call →</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow">Influencer marketing · AI &amp; tech only</p>
+
+      <h1 class="hero__title">
+        Get your AI product in front of creators who <em class="accent">actually get it</em>.
+      </h1>
+
+      <p class="hero__lede">
+        InityX is a small agency that works exclusively with <strong>AI and tech brands</strong>.
+        No fashion drops, no fitness bros — just creators who can read a changelog
+        and explain why your product matters.
+      </p>
+
+      <div class="hero__ctas">
+        <a href="#contact" class="btn btn--primary">Book a call →</a>
+        <a href="#approach" class="btn btn--ghost">See how we work</a>
+      </div>
+
+      <div class="hero__meta">
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Focus</span>
+          <span class="hero__meta-value">AI &amp; developer tools</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Format</span>
+          <span class="hero__meta-value">Creator-led campaigns</span>
+        </div>
+        <div class="hero__meta-item">
+          <span class="hero__meta-label">Stage</span>
+          <span class="hero__meta-value">New &amp; honest about it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §4 APPROACH ============ -->
+  <section class="section" id="approach">
+    <div class="container">
+      <div class="section__head">
+        <p class="section__kicker">— Approach</p>
+        <h2 class="section__title">
+          We don't do <em>everything</em>.<br />
+          We do <span class="accent">one thing</span> well.
+        </h2>
+      </div>
+
+      <div class="approach__list">
+        <article class="approach__item">
+          <p class="approach__num">01</p>
+          <h3 class="approach__title">One <em>category</em>, deep.</h3>
+          <p class="approach__body">
+            We work with <strong>AI and developer tools</strong> only. That means we already
+            speak your product's language — embeddings, eval harnesses, RAG, MCP, you name it —
+            and we don't waste your first call explaining what an LLM is.
+          </p>
+        </article>
+
+        <article class="approach__item">
+          <p class="approach__num">02</p>
+          <h3 class="approach__title">Creators who <em>build</em>.</h3>
+          <p class="approach__body">
+            Our roster is engineers, indie hackers, and technical writers — not lifestyle
+            influencers chasing the next trend. They <strong>actually use your product</strong>
+            before they post about it.
+          </p>
+        </article>
+
+        <article class="approach__item">
+          <p class="approach__num">03</p>
+          <h3 class="approach__title">Honest over <em>hype</em>.</h3>
+          <p class="approach__body">
+            If a creator doesn't fit your product, we say so. If a campaign won't move
+            metrics that matter, we won't pitch it. We'd rather <strong>lose the deal</strong>
+            than ship something that wastes your budget.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §5 SERVICES ============ -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section__head">
+        <p class="section__kicker">— Services</p>
+        <h2 class="section__title">
+          Three ways we <span class="accent">work together</span>.
+        </h2>
+      </div>
+
+      <ul class="services__list">
+        <li>
+          <a href="#contact" class="service" aria-label="Launch campaigns">
+            <span class="service__num">01</span>
+            <span class="service__name">Launch campaigns</span>
+            <span class="service__desc">
+              A short, sharp creator push around your launch — landing page, demo video,
+              long-form review. We pick 4–8 creators, brief them, and ship in 4–6 weeks.
+            </span>
+            <span class="service__meta">
+              <span class="service__meta-label">Engagement</span>
+              <span class="service__meta-value">Project · 4–6 wks</span>
+            </span>
+            <span class="service__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#contact" class="service" aria-label="Always-on programs">
+            <span class="service__num">02</span>
+            <span class="service__name">Always-on programs</span>
+            <span class="service__desc">
+              An ongoing creator drumbeat — quarterly briefs, content cadence, performance
+              loops. Best for growth-stage products that need consistent technical reach.
+            </span>
+            <span class="service__meta">
+              <span class="service__meta-label">Engagement</span>
+              <span class="service__meta-value">Retainer · Quarterly</span>
+            </span>
+            <span class="service__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="#contact" class="service" aria-label="Advisory">
+            <span class="service__num">03</span>
+            <span class="service__name">Advisory</span>
+            <span class="service__desc">
+              For teams building creator marketing in-house. Playbooks, sourcing systems,
+              brief templates, measurement frameworks — without the agency markup.
+            </span>
+            <span class="service__meta">
+              <span class="service__meta-label">Engagement</span>
+              <span class="service__meta-value">Sprint · 2–4 wks</span>
+            </span>
+            <span class="service__arrow" aria-hidden="true">→</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ §6 PROCESS ============ -->
+  <section class="section" id="process">
+    <div class="container">
+      <div class="section__head">
+        <p class="section__kicker">— Process</p>
+        <h2 class="section__title">
+          From kickoff to <span class="accent">live</span> in five steps.
+        </h2>
+      </div>
+
+      <ol class="process" role="list">
+        <li class="process__step">
+          <span class="process__num">01</span>
+          <div class="process__body">
+            <span class="process__step-label">Week 0 · Discovery</span>
+            <h3 class="process__title">We learn your <em>product</em>.</h3>
+            <p class="process__desc">
+              30-minute call. We dig into what you've shipped, who's already using it,
+              what "good" looks like for this campaign, and what would make it a waste
+              of money. No deck, no pitch — just questions.
+            </p>
+          </div>
+        </li>
+
+        <li class="process__step">
+          <span class="process__num">02</span>
+          <div class="process__body">
+            <span class="process__step-label">Week 1 · Strategy</span>
+            <h3 class="process__title">We pick the <em>right creators</em>.</h3>
+            <p class="process__desc">
+              From our roster of AI/dev creators, we shortlist the 6–10 who actually
+              fit your product and audience. You see <strong>real engagement data</strong>
+              — not vanity follower counts — before we reach out to anyone.
+            </p>
+          </div>
+        </li>
+
+        <li class="process__step">
+          <span class="process__num">03</span>
+          <div class="process__body">
+            <span class="process__step-label">Week 2 · Brief</span>
+            <h3 class="process__title">Creators draft, you <em>approve</em>.</h3>
+            <p class="process__desc">
+              We hand each creator a tight brief — what to demo, what to skip, what
+              metric matters. They draft in their voice; you approve before anything
+              ships. No surprises at launch.
+            </p>
+          </div>
+        </li>
+
+        <li class="process__step">
+          <span class="process__num">04</span>
+          <div class="process__body">
+            <span class="process__step-label">Weeks 3–5 · Launch</span>
+            <h3 class="process__title">Content goes <em>live</em>.</h3>
+            <p class="process__desc">
+              Coordinated rollout across channels — long-form first, clips after.
+              We handle scheduling, links, UTMs, and creator-side troubleshooting
+              so your team stays focused on the product.
+            </p>
+          </div>
+        </li>
+
+        <li class="process__step">
+          <span class="process__num">05</span>
+          <div class="process__body">
+            <span class="process__step-label">Week 6 · Report</span>
+            <h3 class="process__title">We tell you what <em>actually worked</em>.</h3>
+            <p class="process__desc">
+              One report. Reach, qualified signups, retained users at 30 days, cost
+              per qualified signup. <strong>If a creator underperformed, we say so</strong> —
+              and we don't book them again unless we have a reason.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ §7 REAL TALK ============ -->
+  <section class="section real-talk" id="real-talk">
+    <div class="container">
+      <div class="real-talk__inner">
+        <p class="real-talk__kicker">Real talk</p>
+
+        <h2 class="real-talk__statement">
+          We're <span class="accent">new</span>. <br />
+          Here's what that actually means.
+        </h2>
+
+        <p class="real-talk__lede">
+          Most agency websites lie a little — fake logos, recycled testimonials,
+          "trusted by hundreds." We'd rather tell you the truth and let you decide
+          if we're worth a 30-minute call.
+        </p>
+
+        <ul class="real-talk__admissions" role="list">
+          <li class="admission">
+            <span class="admission__tag">01</span>
+            <p class="admission__text">
+              <strong>No case studies yet.</strong> InityX launched in 2026.
+              We can show you our roster, our briefs, and our process — but
+              <em>not</em> a six-figure ROI deck, because we won't make one up.
+            </p>
+          </li>
+          <li class="admission">
+            <span class="admission__tag">02</span>
+            <p class="admission__text">
+              <strong>No testimonials.</strong> When we have them, they'll be
+              real names from real founders you can email directly. Not stock
+              photos with fake titles underneath.
+            </p>
+          </li>
+          <li class="admission">
+            <span class="admission__tag">03</span>
+            <p class="admission__text">
+              <strong>We say no a lot.</strong> Wrong category, wrong stage,
+              wrong fit — we'll tell you in the first call and refer you somewhere
+              better. A bad-fit campaign helps <em>no one</em>.
+            </p>
+          </li>
+          <li class="admission">
+            <span class="admission__tag">04</span>
+            <p class="admission__text">
+              <strong>We're small.</strong> Two people right now. That means
+              fast decisions, no account-manager telephone game, and a hard
+              cap on how many brands we work with at once.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §8 CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="contact__grid">
+
+        <div class="contact__pitch">
+          <h2 class="contact__pitch-title">
+            Tell us about your <span class="accent">product</span>.
+          </h2>
+          <p class="contact__pitch-body">
+            Send us a few lines about what you've built and what you're trying
+            to move. We reply within <em>two business days</em> — and if we're not the
+            right fit, we'll point you to someone who is.
+          </p>
+
+          <div class="contact__direct">
+            <span class="contact__direct-label">Or email us directly</span>
+            <a href="mailto:hello@inityx.com?subject=InityX%20—%20Project%20inquiry"
+               class="contact__direct-link">hello@inityx.com</a>
+          </div>
+
+          <div class="contact__meta">
+            <span><strong>Reply time</strong> — within 2 business days</span>
+            <span><strong>Currently onboarding</strong> — 2 spots open for Q3</span>
+            <span><strong>Based</strong> — remote, working CET hours</span>
+          </div>
+        </div>
+
+        <form class="form" id="contact-form" novalidate>
+          <div class="form__row">
+            <div class="form__field">
+              <label class="form__label" for="f-brand">Brand / company</label>
+              <input class="form__input" id="f-brand" name="brand" type="text"
+                     placeholder="Acme AI" required />
+            </div>
+            <div class="form__field">
+              <label class="form__label" for="f-email">Email</label>
+              <input class="form__input" id="f-email" name="email" type="email"
+                     placeholder="you@acme.ai" required />
+            </div>
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-url">Product URL <span style="text-transform:none;color:var(--text-mute)">(optional)</span></label>
+            <input class="form__input" id="f-url" name="url" type="url"
+                   placeholder="https://" />
+          </div>
+
+          <div class="form__field">
+            <label class="form__label" for="f-message">What are you trying to move?</label>
+            <textarea class="form__textarea" id="f-message" name="message" rows="5"
+                      placeholder="Stage, audience, goal for this campaign…" required></textarea>
+          </div>
+
+          <button type="submit" class="form__submit">Send →</button>
+          <p class="form__note">We'll open your mail client with the message pre-filled — you stay in control of what you send.</p>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- §9 Footer — added next -->
+
+  <script>
+    (function () {
+      var form = document.getElementById('contact-form');
+      if (!form) return;
+      var status = document.getElementById('form-status');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var brand = form.brand.value.trim();
+        var email = form.email.value.trim();
+        var url = form.url.value.trim();
+        var msg = form.message.value.trim();
+
+        if (!brand || !email || !msg) {
+          status.textContent = 'Please fill in brand, email, and your message.';
+          status.style.color = '#ff7777';
+          return;
+        }
+
+        var subject = 'InityX — Inquiry from ' + brand;
+        var body =
+          'Brand / company: ' + brand + '\n' +
+          'Email: ' + email + '\n' +
+          (url ? 'Product URL: ' + url + '\n' : '') +
+          '\n' + msg;
+
+        var mailto = 'mailto:hello@inityx.com'
+          + '?subject=' + encodeURIComponent(subject)
+          + '&body=' + encodeURIComponent(body);
+
+        window.location.href = mailto;
+        status.style.color = '';
+        status.textContent = 'Opening your mail client…';
+      });
+    })();
+  </script>
+
+  <!-- ============ §9 FOOTER ============ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+
+        <div class="footer__brand-block">
+          <p class="footer__brand">Inity<span class="logo__mark">X</span></p>
+          <p class="footer__tagline">
+            Influencer marketing for AI &amp; tech brands.
+            Small, picky, and honest about it.
+          </p>
+        </div>
+
+        <div>
+          <span class="footer__col-label">Site</span>
+          <ul class="footer__links" role="list">
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#real-talk">Real talk</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <span class="footer__col-label">Reach us</span>
+          <ul class="footer__links" role="list">
+            <li><a href="mailto:hello@inityx.com">hello@inityx.com<span class="footer__arrow">↗</span></a></li>
+            <li><a href="#" aria-disabled="true">LinkedIn<span class="footer__arrow">↗</span></a></li>
+            <li><a href="#" aria-disabled="true">X / Twitter<span class="footer__arrow">↗</span></a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 InityX. All rights reserved.</span>
+        <a href="#" class="footer__back">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
