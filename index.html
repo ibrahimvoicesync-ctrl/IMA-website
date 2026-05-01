@@ -908,6 +908,13 @@
       color: var(--purple-deep);
     }
 
+    /* ---------- Calculator CTA button ---------- */
+    .calc-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .nav { padding: 1rem 1.5rem; }
@@ -1181,6 +1188,15 @@
           </table>
         </div>
       </div>
+
+      <div class="calc-cta">
+        <a href="#contact" class="hero-btn">
+          Get in touch
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1203,10 +1219,10 @@
             <div class="approach-step-content">
               <h3 class="approach-step-name">Discovery &amp; Fit</h3>
               <p class="approach-step-desc">
-                Reach out via email or book a meeting directly. We dig into what you&#39;ve shipped,
-                who&#39;s already using it, what <strong>good</strong> looks like
-                for this campaign, and what would make it a waste of money.
-                No deck — just questions.
+                Reach out via email. We dig into what you&#39;ve shipped,
+                who&#39;s already using it, what <strong>good</strong> looks
+                like for this campaign, and what would make it a waste of
+                money. No deck — just questions.
               </p>
             </div>
           </div>
@@ -1329,7 +1345,10 @@
           </div>
         </div>
 
-        <form class="contact-form" id="contact-form" novalidate>
+        <form class="contact-form" id="contact-form"
+              action="https://formspree.io/f/mbdwjvpb"
+              method="POST"
+              novalidate>
           <div class="form-field">
             <label class="form-label" for="brand">Brand name</label>
             <input id="brand" name="brand" class="form-input" type="text"
@@ -1373,9 +1392,12 @@
       var form = document.getElementById('contact-form');
       if (!form) return;
       var status = document.getElementById('form-status');
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var submitBtnHTML = submitBtn ? submitBtn.innerHTML : '';
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+
         var brand = form.brand.value.trim();
         var email = form.email.value.trim();
         var msg   = form.message.value.trim();
@@ -1386,19 +1408,46 @@
           return;
         }
 
-        var subject = 'InityX — Inquiry from ' + brand;
-        var body =
-          'Brand: ' + brand + '\n' +
-          'Email: ' + email + '\n\n' +
-          msg;
-
-        var mailto = 'mailto:ibrahim@inityx.org'
-          + '?subject=' + encodeURIComponent(subject)
-          + '&body=' + encodeURIComponent(body);
-
-        window.location.href = mailto;
         status.style.color = '';
-        status.textContent = 'Opening your mail client…';
+        status.textContent = 'Sending…';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Sending…';
+        }
+
+        var data = new FormData(form);
+        data.append('_subject', 'InityX — Inquiry from ' + brand);
+
+        fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (res) {
+          if (res.ok) {
+            form.reset();
+            status.style.color = '';
+            status.textContent = 'Thanks — your message is on its way. We’ll be in touch soon.';
+          } else {
+            return res.json().then(function (body) {
+              var errMsg = (body && body.errors && body.errors.length)
+                ? body.errors.map(function (e) { return e.message; }).join(', ')
+                : 'Something went wrong. Please try again or email ibrahim@inityx.org directly.';
+              throw new Error(errMsg);
+            });
+          }
+        })
+        .catch(function (err) {
+          status.style.color = '#b00';
+          status.textContent = err.message ||
+            'Could not send. Please try again or email ibrahim@inityx.org directly.';
+        })
+        .then(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = submitBtnHTML;
+          }
+        });
       });
     })();
   </script>
