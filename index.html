@@ -439,20 +439,13 @@
 
     /* ---------- §4 Real Talk (honest) ---------- */
     .honest-section {
-      background: var(--purple-deep);
+      background:
+        radial-gradient(ellipse 90% 70% at 15% 20%, rgba(183, 148, 244, 0.10), transparent 60%),
+        radial-gradient(ellipse 80% 60% at 85% 90%, rgba(183, 148, 244, 0.06), transparent 65%),
+        var(--purple-deep);
       color: var(--beige);
       position: relative;
       overflow: hidden;
-    }
-    .honest-section::before {
-      content: "";
-      position: absolute;
-      top: -20%;
-      left: -10%;
-      width: 60%;
-      height: 60%;
-      background: radial-gradient(circle, rgba(183, 148, 244, 0.12), transparent 70%);
-      pointer-events: none;
     }
     .honest-section .section-tag { color: rgba(183, 148, 244, 0.85); }
     .honest-section .section-tag::before { background: rgba(183, 148, 244, 0.85); }
@@ -670,6 +663,251 @@
     .form-submit:active,
     .hero-btn:active { transform: translateY(0); }
 
+    /* ---------- §2.5 Calculator ---------- */
+    .calculator-section {
+      background: var(--purple-deep);
+      color: var(--beige);
+    }
+    .calculator-section .section-tag { color: var(--purple-accent); }
+    .calculator-section .section-tag::before { background: var(--purple-accent); }
+
+    .calc-header {
+      max-width: 720px;
+      margin-bottom: 3.5rem;
+    }
+    .calc-title {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--beige);
+      margin-bottom: 1.5rem;
+    }
+    .calc-title em {
+      font-family: "Bodoni Moda", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--purple-accent);
+    }
+    .calc-blurb {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(241, 232, 214, 0.7);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* Panels (cards) */
+    .calc-panel {
+      padding: 2.25rem;
+      background: rgba(241, 232, 214, 0.04);
+      border: 1px solid rgba(241, 232, 214, 0.1);
+      border-radius: 4px;
+    }
+    .calc-panel-output {
+      background: rgba(183, 148, 244, 0.06);
+      border-color: rgba(183, 148, 244, 0.18);
+    }
+    .calc-panel-title {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(241, 232, 214, 0.08);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--purple-accent);
+    }
+
+    /* Input fields */
+    .calc-panel-inputs { display: grid; gap: 1.5rem; align-content: start; }
+    .calc-panel-inputs > .calc-panel-title { margin-bottom: 0.5rem; }
+    .calc-field { display: grid; gap: 0.5rem; }
+    .calc-field label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--beige);
+    }
+    .calc-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: stretch;
+      background: rgba(241, 232, 214, 0.05);
+      border: 1px solid rgba(241, 232, 214, 0.15);
+      border-radius: 3px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .calc-input-wrap:focus-within {
+      border-color: var(--purple-accent);
+      background: rgba(241, 232, 214, 0.08);
+    }
+    .calc-input-wrap input {
+      flex: 1;
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: transparent;
+      border: 0;
+      color: var(--beige);
+      font: inherit;
+      font-size: 1.1rem;
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-input-wrap input:focus-visible { outline: none; }
+    .calc-input-wrap input::-webkit-outer-spin-button,
+    .calc-input-wrap input::-webkit-inner-spin-button {
+      -webkit-appearance: none; margin: 0;
+    }
+    .calc-input-wrap input { -moz-appearance: textfield; }
+    .calc-input-affix {
+      display: flex;
+      align-items: center;
+      padding: 0 0.95rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: rgba(241, 232, 214, 0.45);
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-input-wrap-prefix .calc-input-affix {
+      border-right: 1px solid rgba(241, 232, 214, 0.1);
+    }
+    .calc-input-wrap-suffix .calc-input-affix {
+      border-left: 1px solid rgba(241, 232, 214, 0.1);
+    }
+    .calc-input-wrap-prefix input { padding-left: 0.6rem; }
+    .calc-input-wrap-suffix input { padding-right: 0.6rem; }
+    .calc-help {
+      font-size: 0.78rem;
+      line-height: 1.5;
+      color: rgba(241, 232, 214, 0.5);
+    }
+
+    /* Output blocks */
+    .calc-panel-output { position: sticky; top: 6rem; }
+    .calc-out-block {
+      display: grid;
+      gap: 0.35rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(241, 232, 214, 0.08);
+    }
+    .calc-out-block:last-of-type { border-bottom: 0; }
+    .calc-out-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 2.25rem;
+      letter-spacing: 0.01em;
+      line-height: 1;
+      color: var(--beige);
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-out-name {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(241, 232, 214, 0.85);
+    }
+    .calc-out-context {
+      font-size: 0.74rem;
+      color: rgba(241, 232, 214, 0.45);
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-out-headline {
+      margin-top: 0.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(183, 148, 244, 0.3);
+    }
+    .calc-out-headline .calc-out-name { color: var(--purple-accent); }
+    .calc-out-num-big {
+      font-size: clamp(2.75rem, 5vw, 3.75rem);
+      color: var(--purple-accent);
+    }
+    .calc-disclaimer {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(241, 232, 214, 0.08);
+      font-size: 0.76rem;
+      line-height: 1.6;
+      color: rgba(241, 232, 214, 0.45);
+    }
+
+    /* Scenarios table */
+    .calc-scenarios {
+      margin-top: 1.5rem;
+      padding: 2.25rem;
+      background: rgba(241, 232, 214, 0.04);
+      border: 1px solid rgba(241, 232, 214, 0.1);
+      border-radius: 4px;
+    }
+    .calc-scenarios-head { margin-bottom: 1.75rem; }
+    .calc-scenarios-head .calc-panel-title { margin-bottom: 0.85rem; }
+    .calc-scenarios-blurb {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: rgba(241, 232, 214, 0.6);
+      max-width: 580px;
+    }
+    .calc-table-wrap { overflow-x: auto; }
+    .calc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-table th,
+    .calc-table td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    .calc-table th {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(241, 232, 214, 0.55);
+      border-bottom: 1px solid rgba(241, 232, 214, 0.12);
+    }
+    .calc-table th:first-child,
+    .calc-table td:first-child { padding-left: 0; }
+    .calc-table th:last-child,
+    .calc-table td:last-child { padding-right: 0; text-align: right; }
+    .calc-table tbody tr {
+      border-bottom: 1px solid rgba(241, 232, 214, 0.06);
+    }
+    .calc-table tbody tr:last-child { border-bottom: 0; }
+    .calc-table td { color: rgba(241, 232, 214, 0.8); }
+    .calc-table .calc-table-emph {
+      color: var(--beige);
+      font-weight: 600;
+    }
+    .calc-table tbody tr[data-scenario="strong"] .calc-cell-revenue {
+      color: var(--purple-accent);
+    }
+    .calc-tag {
+      display: inline-block;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      border-radius: 999px;
+    }
+    .calc-tag-cautious  {
+      background: rgba(241, 232, 214, 0.08);
+      color: rgba(241, 232, 214, 0.7);
+    }
+    .calc-tag-realistic {
+      background: rgba(183, 148, 244, 0.15);
+      color: var(--purple-accent);
+    }
+    .calc-tag-strong    {
+      background: var(--purple-accent);
+      color: var(--purple-deep);
+    }
+
     /* ---------- Responsive ---------- */
     @media (max-width: 900px) {
       .nav { padding: 1rem 1.5rem; }
@@ -682,6 +920,13 @@
 
       .services-header { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
       .services-grid   { grid-template-columns: 1fr; }
+
+      .calc-grid          { grid-template-columns: 1fr; gap: 1rem; }
+      .calc-panel         { padding: 1.75rem; }
+      .calc-panel-output  { position: static; }
+      .calc-scenarios     { padding: 1.75rem; }
+      .calc-table th,
+      .calc-table td      { padding: 0.85rem 0.6rem; font-size: 0.85rem; }
 
       .approach-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .approach-sticky { position: static; }
@@ -704,6 +949,7 @@
     <a href="#" class="nav-logo">Inity<span>X</span></a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
+      <li><a href="#calculator">Calculator</a></li>
       <li><a href="#approach">Approach</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact" class="nav-cta">Get in Contact</a></li>
@@ -717,13 +963,12 @@
       <h1 class="hero-title">
         Get Your
         <em>AI Technology</em>
-        Through<br />
+        Known Through<br />
         Creators
       </h1>
       <p class="hero-sub">
-        No vague pitches. No vanity metrics. Just a small roster of AI and
-        developer-tool creators who can read a changelog and explain why your
-        product actually matters.
+        No empty promises. No inflated numbers. Just a select group of creators
+        who truly understand AI tools and can clearly show why yours stands out.
       </p>
       <a href="#contact" class="hero-btn">
         Let&#39;s Talk
@@ -736,21 +981,21 @@
     <div class="hero-right">
       <p class="hero-stat-label">The InityX approach</p>
       <p class="hero-manifesto">
-        AI brands deserve <em>honest</em> partnerships with creators who actually
-        use the product — not vanity metrics.
+        AI brands deserve <em>honest</em> partnerships with creators who really
+        use the product — not just big follower counts.
       </p>
       <div class="hero-pillars">
         <div class="hero-pillar">
           <span class="hero-pillar-num">01</span>
-          <span class="hero-pillar-text">AI &amp; developer-tool creator identification</span>
+          <span class="hero-pillar-text">We find the right creators for your AI tool</span>
         </div>
         <div class="hero-pillar">
           <span class="hero-pillar-num">02</span>
-          <span class="hero-pillar-text">End-to-end campaign management</span>
+          <span class="hero-pillar-text">We run the whole campaign for you</span>
         </div>
         <div class="hero-pillar">
           <span class="hero-pillar-num">03</span>
-          <span class="hero-pillar-text">Conversion-focused content strategy</span>
+          <span class="hero-pillar-text">We make content that turns viewers into customers</span>
         </div>
       </div>
     </div>
@@ -765,42 +1010,176 @@
           <h2 class="services-title">Three<br />Focused<br />Services</h2>
         </div>
         <p class="services-desc">
-          We keep our scope tight so we can execute each piece well. AI and
+          We focus on a few things so we can do them really well. AI and
           developer tools is all we work in — which means we understand your
-          category, your audience, and the creators who influence it.
+          space, your audience, and the creators who shape it.
         </p>
       </div>
 
       <div class="services-grid">
         <article class="service-card">
           <span class="service-num">01 — Core</span>
-          <h3 class="service-name">Launch Campaigns</h3>
+          <h3 class="service-name">Fixed-Fee Campaigns</h3>
           <p class="service-desc">
-            A short, sharp creator push around your launch — landing page,
-            demo video, long-form review. We pick 4–8 creators, brief them,
-            and ship in 4–6 weeks. Every creator hand-selected for category fit.
+            One agreed scope, one agreed price, defined start and end. You pay
+            upfront and we deliver the full creator push end-to-end. Best for
+            one-off pushes where you want cost certainty.
           </p>
         </article>
 
         <article class="service-card light">
           <span class="service-num">02</span>
-          <h3 class="service-name">Always-on Programs</h3>
+          <h3 class="service-name">Monthly Retainers</h3>
           <p class="service-desc">
-            An ongoing creator drumbeat — quarterly briefs, content cadence,
-            performance loops. Built for growth-stage products that need
-            consistent technical reach.
+            A recurring monthly fee in exchange for ongoing creator work. We
+            operate as your creator team month after month — planning content,
+            learning what works, and adjusting as we go. Best for teams that
+            want creator marketing as a steady channel.
           </p>
         </article>
 
         <article class="service-card light">
           <span class="service-num">03</span>
-          <h3 class="service-name">Advisory</h3>
+          <h3 class="service-name">Performance-Based</h3>
           <p class="service-desc">
-            For teams building creator marketing in-house. Playbooks, sourcing
-            systems, brief templates, measurement frameworks — without the
-            agency markup.
+            You only pay for results. We run the campaign with little or no
+            upfront fee, and earn through a share of the revenue, sign-ups, or
+            other outcomes we drive. Reserved for established brands we've
+            qualified — strong product, clear demand, real conversion.
           </p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §2.5 ROI CALCULATOR ============ -->
+  <section class="section calculator-section" id="calculator">
+    <div class="container">
+      <div class="calc-header">
+        <p class="section-tag">Calculator</p>
+        <h2 class="calc-title">See What a Campaign<br />Could <em>Return</em></h2>
+        <p class="calc-blurb">
+          A quick projection. Plug in your numbers and we&#39;ll show you the
+          revenue side of the equation.
+        </p>
+      </div>
+
+      <div class="calc-grid">
+        <!-- LEFT: Inputs panel -->
+        <div class="calc-panel calc-panel-inputs">
+          <p class="calc-panel-title">Your campaign assumptions</p>
+
+          <div class="calc-field">
+            <label for="calc-viewers">Total viewers</label>
+            <div class="calc-input-wrap">
+              <input id="calc-viewers" type="number" inputmode="numeric" min="0" step="1000" value="500000" />
+            </div>
+            <p class="calc-help">Combined views across all creators in the campaign.</p>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-funnel">Funnel rate</label>
+            <div class="calc-input-wrap calc-input-wrap-suffix">
+              <input id="calc-funnel" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="5" />
+              <span class="calc-input-affix">%</span>
+            </div>
+            <p class="calc-help">Share of viewers who click through to your site.</p>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-conversion">Conversion rate</label>
+            <div class="calc-input-wrap calc-input-wrap-suffix">
+              <input id="calc-conversion" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="10" />
+              <span class="calc-input-affix">%</span>
+            </div>
+            <p class="calc-help">Share of visitors who become paying customers.</p>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-ticket">Average ticket</label>
+            <div class="calc-input-wrap calc-input-wrap-prefix">
+              <span class="calc-input-affix">$</span>
+              <input id="calc-ticket" type="number" inputmode="decimal" min="0" step="1" value="49" />
+            </div>
+            <p class="calc-help">Average revenue per customer.</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Output panel -->
+        <div class="calc-panel calc-panel-output">
+          <p class="calc-panel-title">Estimated impact</p>
+
+          <div class="calc-out-block">
+            <span class="calc-out-num" id="calc-out-visitors">—</span>
+            <span class="calc-out-name">Visitors driven to your site</span>
+            <span class="calc-out-context" id="calc-out-visitors-ctx">—</span>
+          </div>
+
+          <div class="calc-out-block">
+            <span class="calc-out-num" id="calc-out-customers">—</span>
+            <span class="calc-out-name">Paying customers</span>
+            <span class="calc-out-context" id="calc-out-customers-ctx">—</span>
+          </div>
+
+          <div class="calc-out-block calc-out-headline">
+            <span class="calc-out-num calc-out-num-big" id="calc-out-revenue">—</span>
+            <span class="calc-out-name">Estimated revenue</span>
+            <span class="calc-out-context">Per campaign cycle</span>
+          </div>
+
+          <p class="calc-disclaimer">
+            A projection, not a promise. Real campaigns vary by category,
+            creator mix, and product fit.
+          </p>
+        </div>
+      </div>
+
+      <!-- BELOW: Scenarios table -->
+      <div class="calc-scenarios">
+        <div class="calc-scenarios-head">
+          <p class="calc-panel-title">Revenue across scenarios</p>
+          <p class="calc-scenarios-blurb">
+            Same viewers and ticket — different campaign quality. Stronger
+            creator fit pushes both funnel and conversion up.
+          </p>
+        </div>
+
+        <div class="calc-table-wrap">
+          <table class="calc-table">
+            <thead>
+              <tr>
+                <th>Scenario</th>
+                <th>Funnel</th>
+                <th>Conversion</th>
+                <th>Customers</th>
+                <th class="calc-table-emph">Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-scenario="cautious">
+                <td><span class="calc-tag calc-tag-cautious">Cautious</span></td>
+                <td>3%</td>
+                <td>7%</td>
+                <td class="calc-cell-customers">—</td>
+                <td class="calc-cell-revenue calc-table-emph">—</td>
+              </tr>
+              <tr data-scenario="realistic">
+                <td><span class="calc-tag calc-tag-realistic">Realistic</span></td>
+                <td>5%</td>
+                <td>10%</td>
+                <td class="calc-cell-customers">—</td>
+                <td class="calc-cell-revenue calc-table-emph">—</td>
+              </tr>
+              <tr data-scenario="strong">
+                <td><span class="calc-tag calc-tag-strong">Strong fit</span></td>
+                <td>8%</td>
+                <td>15%</td>
+                <td class="calc-cell-customers">—</td>
+                <td class="calc-cell-revenue calc-table-emph">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
@@ -835,12 +1214,14 @@
           <div class="approach-step">
             <span class="approach-step-num">02</span>
             <div class="approach-step-content">
-              <h3 class="approach-step-name">Creator Research</h3>
+              <h3 class="approach-step-name">Creator Match</h3>
               <p class="approach-step-desc">
-                From our roster of AI and developer-tool creators, we shortlist
-                the 6–10 who actually fit your product and audience. You see
-                <strong>real engagement data</strong> — not vanity follower counts
-                — before we reach out to anyone.
+                We already have a list of creators ready to go — people who
+                make videos about AI and tech tools, hand-picked by us. When
+                you tell us about your product, we choose the ones whose fans
+                will care most. You see <strong>all the real numbers</strong>
+                about each creator — views, likes, comments, who their fans
+                are — before we message anyone.
               </p>
             </div>
           </div>
@@ -876,8 +1257,10 @@
               <p class="approach-step-desc">
                 One report. Reach, qualified signups, retained users at 30 days,
                 cost per qualified signup. <strong>If a creator underperformed,
-                we say so</strong> — and we don&#39;t book them again unless
-                we have a reason.
+                we say so.</strong> And if a campaign falls short of what we
+                promised you, <strong>we will try to make it right at our cost</strong> —
+                extra posts, additional content, or organic follow-up until we
+                land where we said we would. Your outcome is on us.
               </p>
             </div>
           </div>
@@ -895,7 +1278,7 @@
           <h2 class="honest-title">
             Real<br />
             Talk<br />
-            <em>About</em><br />
+            <em>About</em>
             Where<br />
             We Are
           </h2>
@@ -1017,6 +1400,76 @@
         status.style.color = '';
         status.textContent = 'Opening your mail client…';
       });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var viewers    = $('calc-viewers');
+      var funnel     = $('calc-funnel');
+      var conversion = $('calc-conversion');
+      var ticket     = $('calc-ticket');
+      var oVisitors  = $('calc-out-visitors');
+      var oCustomers = $('calc-out-customers');
+      var oRevenue   = $('calc-out-revenue');
+      var oVisitorsCtx  = $('calc-out-visitors-ctx');
+      var oCustomersCtx = $('calc-out-customers-ctx');
+
+      if (!viewers || !funnel || !conversion || !ticket) return;
+
+      var fmtInt   = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
+      var fmtMoney = new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: 'USD', maximumFractionDigits: 0
+      });
+
+      var SCENARIOS = [
+        { key: 'cautious',  funnel: 0.03, conv: 0.07 },
+        { key: 'realistic', funnel: 0.05, conv: 0.10 },
+        { key: 'strong',    funnel: 0.08, conv: 0.15 }
+      ];
+
+      function num(el) {
+        var n = parseFloat(el.value);
+        return isFinite(n) && n > 0 ? n : 0;
+      }
+      function pct(el) { return Math.min(num(el), 100) / 100; }
+      function pctLabel(el) { return Math.min(num(el), 100).toFixed(1).replace(/\.0$/, '') + '%'; }
+
+      function update() {
+        var v         = num(viewers);
+        var f         = pct(funnel);
+        var c         = pct(conversion);
+        var t         = num(ticket);
+        var visitors  = v * f;
+        var customers = visitors * c;
+        var revenue   = customers * t;
+
+        oVisitors.textContent  = fmtInt.format(Math.round(visitors));
+        oCustomers.textContent = fmtInt.format(Math.round(customers));
+        oRevenue.textContent   = fmtMoney.format(Math.round(revenue));
+
+        oVisitorsCtx.textContent  =
+          fmtInt.format(Math.round(v)) + ' viewers × ' + pctLabel(funnel);
+        oCustomersCtx.textContent =
+          fmtInt.format(Math.round(visitors)) + ' visitors × ' + pctLabel(conversion);
+
+        SCENARIOS.forEach(function (s) {
+          var row = document.querySelector('tr[data-scenario="' + s.key + '"]');
+          if (!row) return;
+          var sCustomers = v * s.funnel * s.conv;
+          var sRevenue   = sCustomers * t;
+          row.querySelector('.calc-cell-customers').textContent =
+            fmtInt.format(Math.round(sCustomers));
+          row.querySelector('.calc-cell-revenue').textContent =
+            fmtMoney.format(Math.round(sRevenue));
+        });
+      }
+
+      [viewers, funnel, conversion, ticket].forEach(function (el) {
+        el.addEventListener('input', update);
+      });
+      update();
     })();
   </script>
 
