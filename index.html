@@ -726,9 +726,17 @@
     }
 
     /* Input fields */
-    .calc-panel-inputs { display: grid; gap: 1.5rem; align-content: start; }
-    .calc-panel-inputs > .calc-panel-title { margin-bottom: 0.5rem; }
-    .calc-field { display: grid; gap: 0.5rem; }
+    .calc-panel-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem 1.5rem;
+      align-content: start;
+    }
+    .calc-panel-inputs > .calc-panel-title {
+      grid-column: 1 / -1;
+      margin-bottom: 0.5rem;
+    }
+    .calc-field { display: grid; gap: 0.5rem; align-content: start; }
     .calc-field label {
       font-size: 0.82rem;
       font-weight: 600;
@@ -785,8 +793,22 @@
     .calc-input-wrap-suffix input { padding-right: 0.6rem; }
     .calc-help {
       font-size: 0.78rem;
-      line-height: 1.5;
+      line-height: 1.45;
       color: rgba(241, 232, 214, 0.5);
+      max-height: 0;
+      margin-top: -0.5rem;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease, opacity 0.2s ease, margin-top 0.25s ease;
+    }
+    .calc-field:focus-within .calc-help {
+      max-height: 4rem;
+      margin-top: 0;
+      opacity: 1;
+    }
+    @media (hover: none) {
+      /* Touch devices: keep hints visible since there's no hover/focus cue */
+      .calc-help { max-height: 4rem; margin-top: 0; opacity: 1; }
     }
 
     /* Output blocks */
@@ -935,6 +957,7 @@
       .services-grid   { grid-template-columns: 1fr; }
 
       .calc-grid          { grid-template-columns: 1fr; gap: 1rem; }
+      .calc-panel-inputs  { grid-template-columns: 1fr; }
       .calc-panel         { padding: 1.75rem; }
       .calc-panel-output  { position: static; }
       .calc-scenarios     { padding: 1.75rem; }
@@ -1073,7 +1096,7 @@
         <h2 class="calc-title">See What a Campaign<br />Could <em>Return</em></h2>
         <p class="calc-blurb">
           A quick projection. Plug in your numbers and we&#39;ll show you the
-          revenue side of the equation.
+          profit side of the equation.
         </p>
       </div>
 
@@ -1087,7 +1110,7 @@
             <div class="calc-input-wrap">
               <input id="calc-viewers" type="number" inputmode="numeric" min="0" step="1000" value="500000" />
             </div>
-            <p class="calc-help">Combined views across all creators in the campaign.</p>
+            <p class="calc-help">Combined views across all creators.</p>
           </div>
 
           <div class="calc-field">
@@ -1096,7 +1119,7 @@
               <input id="calc-funnel" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="5" />
               <span class="calc-input-affix">%</span>
             </div>
-            <p class="calc-help">Share of viewers who click through to your site.</p>
+            <p class="calc-help">Viewers who click through to your site.</p>
           </div>
 
           <div class="calc-field">
@@ -1105,16 +1128,34 @@
               <input id="calc-conversion" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="10" />
               <span class="calc-input-affix">%</span>
             </div>
-            <p class="calc-help">Share of visitors who become paying customers.</p>
+            <p class="calc-help">Visitors who become paying customers.</p>
           </div>
 
           <div class="calc-field">
-            <label for="calc-ticket">Average ticket</label>
+            <label for="calc-ticket">Average revenue per customer</label>
             <div class="calc-input-wrap calc-input-wrap-prefix">
               <span class="calc-input-affix">$</span>
               <input id="calc-ticket" type="number" inputmode="decimal" min="0" step="1" value="49" />
             </div>
-            <p class="calc-help">Average revenue per customer.</p>
+            <p class="calc-help">Monthly subscription revenue per customer.</p>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-cost">Monthly cost per customer</label>
+            <div class="calc-input-wrap calc-input-wrap-prefix">
+              <span class="calc-input-affix">$</span>
+              <input id="calc-cost" type="number" inputmode="decimal" min="0" step="1" value="12" />
+            </div>
+            <p class="calc-help">Monthly cost to serve one customer.</p>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-tenure">Average subscription length</label>
+            <div class="calc-input-wrap calc-input-wrap-suffix">
+              <input id="calc-tenure" type="number" inputmode="numeric" min="1" step="1" value="12" />
+              <span class="calc-input-affix">months</span>
+            </div>
+            <p class="calc-help">Months the average customer stays subscribed.</p>
           </div>
         </div>
 
@@ -1136,8 +1177,7 @@
 
           <div class="calc-out-block calc-out-headline">
             <span class="calc-out-num calc-out-num-big" id="calc-out-revenue">—</span>
-            <span class="calc-out-name">Estimated revenue</span>
-            <span class="calc-out-context">Per campaign cycle</span>
+            <span class="calc-out-name">Lifetime gross profit</span>
           </div>
 
           <p class="calc-disclaimer">
@@ -1150,10 +1190,10 @@
       <!-- BELOW: Scenarios table -->
       <div class="calc-scenarios">
         <div class="calc-scenarios-head">
-          <p class="calc-panel-title">Revenue across scenarios</p>
+          <p class="calc-panel-title">Lifetime gross profit across scenarios</p>
           <p class="calc-scenarios-blurb">
-            Same viewers and ticket — different campaign quality. Stronger
-            creator fit pushes both funnel and conversion up.
+            Same economics — different campaign quality. Stronger creator fit
+            pushes both funnel and conversion up.
           </p>
         </div>
 
@@ -1165,7 +1205,7 @@
                 <th>Funnel</th>
                 <th>Conversion</th>
                 <th>Customers</th>
-                <th class="calc-table-emph">Revenue</th>
+                <th class="calc-table-emph">Lifetime gross profit</th>
               </tr>
             </thead>
             <tbody>
@@ -1465,13 +1505,15 @@
       var funnel     = $('calc-funnel');
       var conversion = $('calc-conversion');
       var ticket     = $('calc-ticket');
+      var cost       = $('calc-cost');
+      var tenure     = $('calc-tenure');
       var oVisitors  = $('calc-out-visitors');
       var oCustomers = $('calc-out-customers');
       var oRevenue   = $('calc-out-revenue');
       var oVisitorsCtx  = $('calc-out-visitors-ctx');
       var oCustomersCtx = $('calc-out-customers-ctx');
 
-      if (!viewers || !funnel || !conversion || !ticket) return;
+      if (!viewers || !funnel || !conversion || !ticket || !cost || !tenure) return;
 
       var fmtInt   = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
       var fmtMoney = new Intl.NumberFormat('en-US', {
@@ -1496,13 +1538,16 @@
         var f         = pct(funnel);
         var c         = pct(conversion);
         var t         = num(ticket);
+        var cst       = num(cost);
+        var months    = num(tenure);
+        var margin    = Math.max(t - cst, 0);
         var visitors  = v * f;
         var customers = visitors * c;
-        var revenue   = customers * t;
+        var profit    = customers * margin * months;
 
         oVisitors.textContent  = fmtInt.format(Math.round(visitors));
         oCustomers.textContent = fmtInt.format(Math.round(customers));
-        oRevenue.textContent   = fmtMoney.format(Math.round(revenue));
+        oRevenue.textContent   = fmtMoney.format(Math.round(profit));
 
         oVisitorsCtx.textContent  =
           fmtInt.format(Math.round(v)) + ' viewers × ' + pctLabel(funnel);
@@ -1513,15 +1558,15 @@
           var row = document.querySelector('tr[data-scenario="' + s.key + '"]');
           if (!row) return;
           var sCustomers = v * s.funnel * s.conv;
-          var sRevenue   = sCustomers * t;
+          var sProfit    = sCustomers * margin * months;
           row.querySelector('.calc-cell-customers').textContent =
             fmtInt.format(Math.round(sCustomers));
           row.querySelector('.calc-cell-revenue').textContent =
-            fmtMoney.format(Math.round(sRevenue));
+            fmtMoney.format(Math.round(sProfit));
         });
       }
 
-      [viewers, funnel, conversion, ticket].forEach(function (el) {
+      [viewers, funnel, conversion, ticket, cost, tenure].forEach(function (el) {
         el.addEventListener('input', update);
       });
       update();
