@@ -742,6 +742,10 @@
       font-weight: 600;
       letter-spacing: 0.04em;
       color: var(--beige);
+      line-height: 1.2;
+      min-height: 2.4em;            /* reserve 2 lines so inputs align across columns */
+      display: flex;
+      align-items: flex-end;        /* short labels hug their input */
     }
     .calc-input-wrap {
       position: relative;
@@ -1132,7 +1136,7 @@
           </div>
 
           <div class="calc-field">
-            <label for="calc-ticket">Average revenue per customer</label>
+            <label for="calc-ticket">Average monthly revenue per customer</label>
             <div class="calc-input-wrap calc-input-wrap-prefix">
               <span class="calc-input-affix">$</span>
               <input id="calc-ticket" type="number" inputmode="decimal" min="0" step="1" value="49" />
